@@ -1,10 +1,27 @@
-const getRandom = (min, max) => 
-  Math.floor(Math.random() * (max - min) + min);
+const resultField = document.getElementById('result');
 
-const getRandomLower = () => 
+const lengthControl = document.getElementById('length');
+const uppercaseControl = document.getElementById('uppercase');
+const lowercaseControl = document.getElementById('lowercase');
+const numberControl = document.getElementById('numbers');
+const symbolControl = document.getElementById('symbols');
+
+const generateButton = document.getElementById('generate-btn');
+const clipboardButton = document.getElementById('clipboard-btn');
+
+const parseInteger = value => parseInt(value, 10);
+
+const identity = value => value;
+
+const { entries } = Object;
+
+const getRandom = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1) + min);
+
+const getRandomLower = () =>
   String.fromCharCode(getRandom(97, 122));
 
-const getRandomUpper = () => 
+const getRandomUpper = () =>
   String.fromCharCode(getRandom(65, 90));
 
 const getRandomNumber = () =>
@@ -19,3 +36,51 @@ const randomFunctionMap = new Map([
   ['number', getRandomNumber],
   ['symbol', getRandomSymbol]
 ]);
+
+const getPasswordSettings = () => ({
+  length: parseInteger(lengthControl.value),
+  hasLower: lowercaseControl.checked,
+  hasUpper: uppercaseControl.checked,
+  hasNumber: numberControl.checked,
+  hasSymbol: symbolControl.checked,
+});
+
+const generatePassword = ({ length, hasLower, hasUpper, hasNumber, hasSymbol }) => {
+  let generatedPassword = '';
+
+  const types = {
+    lower: hasLower,
+    upper: hasUpper,
+    number: hasNumber,
+    symbol: hasSymbol
+  };
+
+  const activeTypes = entries(types)
+    .filter(([_type, value]) => value)
+    .map(([type]) => type);
+
+  if (activeTypes.length === 0) {
+    return '';
+  }
+
+  for (let i = 0; i < length; i += activeTypes.length) {
+    activeTypes.forEach(type => {
+      generatedPassword += (randomFunctionMap.get(type))();
+    })
+  }
+
+  return generatedPassword.slice(0, length);
+};
+
+const handlePasswordGenerate = () => {
+  const settings = getPasswordSettings();
+  const password = generatePassword(settings);
+
+  resultField.innerHTML = password;
+};
+
+const initializeApp = () => {
+  generateButton.addEventListener('click', handlePasswordGenerate);
+};
+
+initializeApp();

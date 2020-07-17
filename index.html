@@ -1,15 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>pwdgen</title>
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+
   <link rel="stylesheet" href="src/styles/main.css">
 
   <script defer src="src/scripts/app.js"></script>
 </head>
+
 <body>
-  
+
+  <div class="app" id="app">
+    <div class="container">
+      <h2 class="app__name">
+        pwdgen
+      </h2>
+
+      <div class="result-container">
+        <span class="result" id="result"></span>
+        <button class="btn btn--clipboard" id="clipboard-btn">
+          <i class="far fa-clipboard"></i>
+        </button>
+      </div>
+
+      <div class="setting-list">
+        <div class="setting">
+          <label for="length" class="setting__name">Password length</label>
+          <input type="number" class="setting__control" id="length" min="6" max="24" step="1" value="20">
+        </div>
+        <div class="setting">
+          <label for="uppercase" class="setting__name">Include uppercase letters</label>
+          <input type="checkbox" class="setting__control" id="uppercase" checked>
+        </div>
+        <div class="setting">
+          <label for="lowercase" class="setting__name">Include lowercase letters</label>
+          <input type="checkbox" class="setting__control" id="lowercase" checked>
+        </div>
+        <div class="setting">
+          <label for="numbers" class="setting__name">Include numbers</label>
+          <input type="checkbox" class="setting__control" id="numbers" checked>
+        </div>
+        <div class="setting">
+          <label for="symbols" class="setting__name">Include symbols</label>
+          <input type="checkbox" class="setting__control" id="symbols" checked>
+        </div>
+      </div>
+
+      <button class="btn btn--large btn--generate" id="generate-btn">
+        Generate password
+      </button>
+    </div>
+  </div>
+
 </body>
+
 </html>

@@ -15,6 +15,16 @@ const identity = value => value;
 
 const { entries } = Object;
 
+const copyToClipboard = (value) => {
+  const textarea = document.createElement('textarea');
+  
+  textarea.value = value;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  textarea.remove();
+};
+
 const getRandom = (min, max) =>
   Math.floor(Math.random() * (max - min + 1) + min);
 
@@ -79,8 +89,20 @@ const handlePasswordGenerate = () => {
   resultField.innerHTML = password;
 };
 
+const handlePasswordCopyToClipboard = () => {
+  const password = resultField.innerHTML;
+
+  if (!password) {
+    return;
+  }
+
+  copyToClipboard(password);
+  alert('Password copied to clipboard');
+};
+
 const initializeApp = () => {
   generateButton.addEventListener('click', handlePasswordGenerate);
+  clipboardButton.addEventListener('click', handlePasswordCopyToClipboard);
 };
 
 initializeApp();

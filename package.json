@@ -1,7 +1,7 @@
 {
   "name": "pwdgen",
   "version": "1.0.0",
-  "description": "Application for generating passwords",
+  "description": "The app for generating passwords",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
